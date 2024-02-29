@@ -7,11 +7,6 @@ import Women from './Women'
 import Men from './Men'
 import Furnatuer from './Furnatuer'
 
-
-
-
-
-
 const Products = () => {
   return (
     <div>

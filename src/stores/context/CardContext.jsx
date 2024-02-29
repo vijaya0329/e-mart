@@ -12,6 +12,7 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = (item) => {
     setCartItems(cartItems.filter((apple) => apple !== item));
   };
+
   return (
     <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
       {children}
