@@ -2,20 +2,25 @@ import React, { useState } from "react";
 import { mobileData } from "../components/data/mobiles";
 import { Link } from "react-router-dom";
 
-
 const MobilePage = () => {
   const [selectedProduct, setSelectedProduct] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState(mobileData);
 
   const companyHandler = (mango) => {
-  if (selectedProduct.includes(mango)) {
-      setSelectedProduct = (selectedProduct.filter(item => item !== mango));
-      
+    let temp = [];
+    if (selectedProduct.includes(mango)) {
+      temp = selectedProduct.filter((item) => item !== mango);
     } else {
-        setSelectedProduct = ([ ...selectedProduct, mango ]);
+      temp = [...selectedProduct, mango];
     }
-    };
-    const filteredProduct = selectedProduct.length===0?
-    mobileData : mobileData.filter((orange)=>selectedProduct.includes(orange.company))
+    setFilteredProducts(
+      temp.length === 0
+        ? mobileData
+        : mobileData.filter((orange) => temp.includes(orange.company))
+    );
+    setSelectedProduct(temp);
+  };
+
   return (
     <>
       <div className="fullpage">
@@ -33,26 +38,23 @@ const MobilePage = () => {
             );
           })}
         </div>
-       
-       
+
         <div className="pageSection">
-        {mobileData.map((item)=> {
-            return(
-                <div>
-                  <Link to = {`/mobiles/${item.id}`}>
+          {filteredProducts.map((item) => {
+            return (
+              <div>
+                <Link to={`/mobiles/${item.id}`}>
                   <div className="pageImg">
-                    <img src={item.image} alt=''/>
-                    </div>
-                  </Link>
-                
-                
-                    <div className="proModel">
-                        {item.company},{item.model}
-                    </div>
+                    <img src={item.image} alt="" />
+                  </div>
+                </Link>
+
+                <div className="proModel">
+                  {item.company},{item.model}
                 </div>
-            )
-        })}
-        
+              </div>
+            );
+          })}
         </div>
       </div>
     </>
